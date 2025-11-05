@@ -2,13 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Menu, X, Users, Target, Briefcase, Camera, Mail, MapPin, Phone, ChevronDown, Sparkles, Award, Building2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import kegiatan1 from "@/assets/Administrasi.jpg";
 import kegiatan2 from "@/assets/Kerja Bakti.jpg";
 import kegiatan3 from "@/assets/Layanan Kesehatan.jpg";
 import kegiatan4 from "@/assets/Qurban.jpg";
 import kegiatan5 from "@/assets/Zumba.jpg";
 import kegiatan6 from "@/assets/Polsek.jpg";
+import kegiatan7 from "@/assets/Posyandu.jpg";
 import Logo from "@/assets/logo_rw.png";
+import Autoplay from "embla-carousel-autoplay";
 
 const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -97,10 +100,41 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent opacity-95"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.15),transparent_50%)]"></div>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        {/* Carousel Background */}
+        <div className="absolute inset-0 z-0">
+          <Carousel
+            opts={{ loop: true }}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
+            className="w-full h-full"
+          >
+            <CarouselContent className="h-screen">
+              {[kegiatan6, kegiatan4, kegiatan7].map((image, index) => (
+                <CarouselItem key={index} className="h-screen">
+                  <div className="relative w-full h-full">
+                    <img
+                      src={image}
+                      alt={`Hero ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-primary/70"></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 bg-white/10 border-white/30 text-white hover:bg-white/20" />
+            <CarouselNext className="right-4 bg-white/10 border-white/30 text-white hover:bg-white/20" />
+          </Carousel>
+        </div>
+        
+        {/* Overlay Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-secondary/20 to-accent/30 z-[1]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)] z-[1]"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl animate-float z-[1]"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float z-[1]" style={{animationDelay: '2s'}}></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center animate-slide-up">
@@ -125,7 +159,7 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10">
           <ChevronDown className="w-10 h-10 text-white drop-shadow-lg" />
         </div>
       </section>
